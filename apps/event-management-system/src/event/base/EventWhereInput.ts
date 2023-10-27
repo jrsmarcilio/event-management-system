@@ -15,10 +15,10 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 
 @InputType()
-class AddressWhereInput {
+class EventWhereInput {
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -28,29 +28,7 @@ class AddressWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  address_1?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  address_2?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  city?: StringNullableFilter;
+  description?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -65,6 +43,17 @@ class AddressWhereInput {
 
   @ApiProperty({
     required: false,
+    type: FloatNullableFilter,
+  })
+  @Type(() => FloatNullableFilter)
+  @IsOptional()
+  @Field(() => FloatNullableFilter, {
+    nullable: true,
+  })
+  itemPrice?: FloatNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -72,18 +61,7 @@ class AddressWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  state?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: IntNullableFilter,
-  })
-  @Type(() => IntNullableFilter)
-  @IsOptional()
-  @Field(() => IntNullableFilter, {
-    nullable: true,
-  })
-  zip?: IntNullableFilter;
+  name?: StringNullableFilter;
 }
 
-export { AddressWhereInput as AddressWhereInput };
+export { EventWhereInput as EventWhereInput };

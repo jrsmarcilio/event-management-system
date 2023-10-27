@@ -11,64 +11,79 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsInt } from "class-validator";
+import { IsOptional, IsEnum } from "class-validator";
+import { SortOrder } from "../../util/SortOrder";
 
-@InputType()
-class AddressCreateInput {
+@InputType({
+  isAbstract: true,
+  description: undefined,
+})
+class EventOrderByInput {
   @ApiProperty({
     required: false,
-    type: String,
+    enum: ["asc", "desc"],
   })
-  @IsString()
   @IsOptional()
-  @Field(() => String, {
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
     nullable: true,
   })
-  address_1?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  address_2?: string | null;
+  createdAt?: SortOrder;
 
   @ApiProperty({
     required: false,
-    type: String,
+    enum: ["asc", "desc"],
   })
-  @IsString()
   @IsOptional()
-  @Field(() => String, {
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
     nullable: true,
   })
-  city?: string | null;
+  description?: SortOrder;
 
   @ApiProperty({
     required: false,
-    type: String,
+    enum: ["asc", "desc"],
   })
-  @IsString()
   @IsOptional()
-  @Field(() => String, {
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
     nullable: true,
   })
-  state?: string | null;
+  id?: SortOrder;
 
   @ApiProperty({
     required: false,
-    type: Number,
+    enum: ["asc", "desc"],
   })
-  @IsInt()
   @IsOptional()
-  @Field(() => Number, {
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
     nullable: true,
   })
-  zip?: number | null;
+  itemPrice?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  name?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  updatedAt?: SortOrder;
 }
 
-export { AddressCreateInput as AddressCreateInput };
+export { EventOrderByInput as EventOrderByInput };

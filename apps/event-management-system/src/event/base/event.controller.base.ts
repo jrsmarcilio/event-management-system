@@ -18,85 +18,81 @@ import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
-import { AddressService } from "../address.service";
+import { EventService } from "../event.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { AddressCreateInput } from "./AddressCreateInput";
-import { AddressWhereInput } from "./AddressWhereInput";
-import { AddressWhereUniqueInput } from "./AddressWhereUniqueInput";
-import { AddressFindManyArgs } from "./AddressFindManyArgs";
-import { AddressUpdateInput } from "./AddressUpdateInput";
-import { Address } from "./Address";
+import { EventCreateInput } from "./EventCreateInput";
+import { EventWhereInput } from "./EventWhereInput";
+import { EventWhereUniqueInput } from "./EventWhereUniqueInput";
+import { EventFindManyArgs } from "./EventFindManyArgs";
+import { EventUpdateInput } from "./EventUpdateInput";
+import { Event } from "./Event";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
-export class AddressControllerBase {
+export class EventControllerBase {
   constructor(
-    protected readonly service: AddressService,
+    protected readonly service: EventService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
-  @swagger.ApiCreatedResponse({ type: Address })
+  @swagger.ApiCreatedResponse({ type: Event })
   @nestAccessControl.UseRoles({
-    resource: "Address",
+    resource: "Event",
     action: "create",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async create(@common.Body() data: AddressCreateInput): Promise<Address> {
+  async create(@common.Body() data: EventCreateInput): Promise<Event> {
     return await this.service.create({
       data: data,
       select: {
-        address_1: true,
-        address_2: true,
-        city: true,
         createdAt: true,
+        description: true,
         id: true,
-        state: true,
+        itemPrice: true,
+        name: true,
         updatedAt: true,
-        zip: true,
       },
     });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get()
-  @swagger.ApiOkResponse({ type: [Address] })
-  @ApiNestedQuery(AddressFindManyArgs)
+  @swagger.ApiOkResponse({ type: [Event] })
+  @ApiNestedQuery(EventFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "Address",
+    resource: "Event",
     action: "read",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findMany(@common.Req() request: Request): Promise<Address[]> {
-    const args = plainToClass(AddressFindManyArgs, request.query);
+  async findMany(@common.Req() request: Request): Promise<Event[]> {
+    const args = plainToClass(EventFindManyArgs, request.query);
     return this.service.findMany({
       ...args,
       select: {
-        address_1: true,
-        address_2: true,
-        city: true,
         createdAt: true,
+        description: true,
         id: true,
-        state: true,
+        itemPrice: true,
+        name: true,
         updatedAt: true,
-        zip: true,
       },
     });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id")
-  @swagger.ApiOkResponse({ type: Address })
+  @swagger.ApiOkResponse({ type: Event })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Address",
+    resource: "Event",
     action: "read",
     possession: "own",
   })
@@ -104,19 +100,17 @@ export class AddressControllerBase {
     type: errors.ForbiddenException,
   })
   async findOne(
-    @common.Param() params: AddressWhereUniqueInput
-  ): Promise<Address | null> {
+    @common.Param() params: EventWhereUniqueInput
+  ): Promise<Event | null> {
     const result = await this.service.findOne({
       where: params,
       select: {
-        address_1: true,
-        address_2: true,
-        city: true,
         createdAt: true,
+        description: true,
         id: true,
-        state: true,
+        itemPrice: true,
+        name: true,
         updatedAt: true,
-        zip: true,
       },
     });
     if (result === null) {
@@ -129,10 +123,10 @@ export class AddressControllerBase {
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: Address })
+  @swagger.ApiOkResponse({ type: Event })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Address",
+    resource: "Event",
     action: "update",
     possession: "any",
   })
@@ -140,22 +134,20 @@ export class AddressControllerBase {
     type: errors.ForbiddenException,
   })
   async update(
-    @common.Param() params: AddressWhereUniqueInput,
-    @common.Body() data: AddressUpdateInput
-  ): Promise<Address | null> {
+    @common.Param() params: EventWhereUniqueInput,
+    @common.Body() data: EventUpdateInput
+  ): Promise<Event | null> {
     try {
       return await this.service.update({
         where: params,
         data: data,
         select: {
-          address_1: true,
-          address_2: true,
-          city: true,
           createdAt: true,
+          description: true,
           id: true,
-          state: true,
+          itemPrice: true,
+          name: true,
           updatedAt: true,
-          zip: true,
         },
       });
     } catch (error) {
@@ -169,10 +161,10 @@ export class AddressControllerBase {
   }
 
   @common.Delete("/:id")
-  @swagger.ApiOkResponse({ type: Address })
+  @swagger.ApiOkResponse({ type: Event })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Address",
+    resource: "Event",
     action: "delete",
     possession: "any",
   })
@@ -180,20 +172,18 @@ export class AddressControllerBase {
     type: errors.ForbiddenException,
   })
   async delete(
-    @common.Param() params: AddressWhereUniqueInput
-  ): Promise<Address | null> {
+    @common.Param() params: EventWhereUniqueInput
+  ): Promise<Event | null> {
     try {
       return await this.service.delete({
         where: params,
         select: {
-          address_1: true,
-          address_2: true,
-          city: true,
           createdAt: true,
+          description: true,
           id: true,
-          state: true,
+          itemPrice: true,
+          name: true,
           updatedAt: true,
-          zip: true,
         },
       });
     } catch (error) {

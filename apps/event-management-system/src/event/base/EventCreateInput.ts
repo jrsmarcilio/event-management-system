@@ -11,10 +11,10 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsInt } from "class-validator";
+import { IsString, IsOptional, IsNumber } from "class-validator";
 
 @InputType()
-class AddressCreateInput {
+class EventCreateInput {
   @ApiProperty({
     required: false,
     type: String,
@@ -24,51 +24,29 @@ class AddressCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  address_1?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  address_2?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  city?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  state?: string | null;
+  description?: string | null;
 
   @ApiProperty({
     required: false,
     type: Number,
   })
-  @IsInt()
+  @IsNumber()
   @IsOptional()
   @Field(() => Number, {
     nullable: true,
   })
-  zip?: number | null;
+  itemPrice?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
 }
 
-export { AddressCreateInput as AddressCreateInput };
+export { EventCreateInput as EventCreateInput };

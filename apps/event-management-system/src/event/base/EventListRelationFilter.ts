@@ -11,64 +11,46 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsInt } from "class-validator";
+import { EventWhereInput } from "./EventWhereInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
 
 @InputType()
-class AddressCreateInput {
+class EventListRelationFilter {
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => EventWhereInput,
   })
-  @IsString()
+  @ValidateNested()
+  @Type(() => EventWhereInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => EventWhereInput, {
     nullable: true,
   })
-  address_1?: string | null;
+  every?: EventWhereInput;
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => EventWhereInput,
   })
-  @IsString()
+  @ValidateNested()
+  @Type(() => EventWhereInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => EventWhereInput, {
     nullable: true,
   })
-  address_2?: string | null;
+  some?: EventWhereInput;
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => EventWhereInput,
   })
-  @IsString()
+  @ValidateNested()
+  @Type(() => EventWhereInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => EventWhereInput, {
     nullable: true,
   })
-  city?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  state?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: Number,
-  })
-  @IsInt()
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  zip?: number | null;
+  none?: EventWhereInput;
 }
-
-export { AddressCreateInput as AddressCreateInput };
+export { EventListRelationFilter as EventListRelationFilter };
