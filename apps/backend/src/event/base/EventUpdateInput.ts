@@ -26,7 +26,7 @@ class EventUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  category?: string | null;
+  category?: string;
 
   @ApiProperty({
     required: false,
@@ -37,7 +37,7 @@ class EventUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  description?: string | null;
+  description?: string;
 
   @ApiProperty({
     required: false,
@@ -48,7 +48,7 @@ class EventUpdateInput {
   @Field(() => Date, {
     nullable: true,
   })
-  endDate?: Date | null;
+  endDate?: Date;
 
   @ApiProperty({
     required: false,
@@ -81,7 +81,7 @@ class EventUpdateInput {
   @Field(() => Date, {
     nullable: true,
   })
-  startDate?: Date | null;
+  startDate?: Date;
 
   @ApiProperty({
     required: false,
@@ -92,7 +92,7 @@ class EventUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  title?: string | null;
+  title?: string;
 
   @ApiProperty({
     required: false,
@@ -115,7 +115,7 @@ class EventUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  venue?: string | null;
+  venue?: string;
 }
 
 export { EventUpdateInput as EventUpdateInput };

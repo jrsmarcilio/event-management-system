@@ -20,17 +20,17 @@ model User {
 }
 
 model Event {
-  category      String?
-  createdAt     DateTime  @default(now())
-  description   String?
-  endDate       DateTime?
-  id            String    @id @default(cuid())
+  category      String
+  createdAt     DateTime @default(now())
+  description   String
+  endDate       DateTime
+  id            String   @id @default(cuid())
   imageUrl      String?
   locationPoint String?
-  startDate     DateTime?
-  title         String?
-  updatedAt     DateTime  @updatedAt
-  UserId        User?     @relation(fields: [UserIdId], references: [id])
-  UserIdId      String?   @unique
-  venue         String?
+  startDate     DateTime
+  title         String
+  updatedAt     DateTime @updatedAt
+  UserId        User?    @relation(fields: [UserIdId], references: [id])
+  UserIdId      String?  @unique
+  venue         String
 }

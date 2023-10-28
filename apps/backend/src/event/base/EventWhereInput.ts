@@ -11,47 +11,47 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { StringFilter } from "../../util/StringFilter";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class EventWhereInput {
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  category?: StringNullableFilter;
+  category?: StringFilter;
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  description?: StringNullableFilter;
+  description?: StringFilter;
 
   @ApiProperty({
     required: false,
-    type: DateTimeNullableFilter,
+    type: DateTimeFilter,
   })
-  @Type(() => DateTimeNullableFilter)
+  @Type(() => DateTimeFilter)
   @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
+  @Field(() => DateTimeFilter, {
     nullable: true,
   })
-  endDate?: DateTimeNullableFilter;
+  endDate?: DateTimeFilter;
 
   @ApiProperty({
     required: false,
@@ -88,25 +88,25 @@ class EventWhereInput {
 
   @ApiProperty({
     required: false,
-    type: DateTimeNullableFilter,
+    type: DateTimeFilter,
   })
-  @Type(() => DateTimeNullableFilter)
+  @Type(() => DateTimeFilter)
   @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
+  @Field(() => DateTimeFilter, {
     nullable: true,
   })
-  startDate?: DateTimeNullableFilter;
+  startDate?: DateTimeFilter;
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  title?: StringNullableFilter;
+  title?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -122,14 +122,14 @@ class EventWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  venue?: StringNullableFilter;
+  venue?: StringFilter;
 }
 
 export { EventWhereInput as EventWhereInput };

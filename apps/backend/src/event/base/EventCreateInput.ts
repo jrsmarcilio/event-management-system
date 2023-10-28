@@ -11,44 +11,35 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
+import { IsString, IsDate, IsOptional, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class EventCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  category?: string | null;
+  @Field(() => String)
+  category!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  description?: string | null;
+  @Field(() => String)
+  description!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
   })
   @IsDate()
   @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  endDate?: Date | null;
+  @Field(() => Date)
+  endDate!: Date;
 
   @ApiProperty({
     required: false,
@@ -73,26 +64,20 @@ class EventCreateInput {
   locationPoint?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
   })
   @IsDate()
   @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  startDate?: Date | null;
+  @Field(() => Date)
+  startDate!: Date;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  title?: string | null;
+  @Field(() => String)
+  title!: string;
 
   @ApiProperty({
     required: false,
@@ -107,15 +92,12 @@ class EventCreateInput {
   UserId?: UserWhereUniqueInput | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  venue?: string | null;
+  @Field(() => String)
+  venue!: string;
 }
 
 export { EventCreateInput as EventCreateInput };
