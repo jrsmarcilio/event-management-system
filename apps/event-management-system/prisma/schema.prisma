@@ -18,17 +18,6 @@ model User {
   username  String   @unique
 }
 
-model Address {
-  address_1 String?
-  address_2 String?
-  city      String?
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  state     String?
-  updatedAt DateTime @updatedAt
-  zip       Int?
-}
-
 model Event {
   createdAt   DateTime @default(now())
   description String?
