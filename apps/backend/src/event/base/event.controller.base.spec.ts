@@ -29,7 +29,6 @@ const CREATE_INPUT = {
   startDate: new Date(),
   title: "exampleTitle",
   updatedAt: new Date(),
-  userId: "exampleUserId",
   venue: "exampleVenue",
 };
 const CREATE_RESULT = {
@@ -43,7 +42,6 @@ const CREATE_RESULT = {
   startDate: new Date(),
   title: "exampleTitle",
   updatedAt: new Date(),
-  userId: "exampleUserId",
   venue: "exampleVenue",
 };
 const FIND_MANY_RESULT = [
@@ -58,7 +56,6 @@ const FIND_MANY_RESULT = [
     startDate: new Date(),
     title: "exampleTitle",
     updatedAt: new Date(),
-    userId: "exampleUserId",
     venue: "exampleVenue",
   },
 ];
@@ -73,7 +70,6 @@ const FIND_ONE_RESULT = {
   startDate: new Date(),
   title: "exampleTitle",
   updatedAt: new Date(),
-  userId: "exampleUserId",
   venue: "exampleVenue",
 };
 

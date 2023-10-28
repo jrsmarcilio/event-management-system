@@ -48,7 +48,15 @@ export class EventControllerBase {
   })
   async create(@common.Body() data: EventCreateInput): Promise<Event> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        UserId: data.UserId
+          ? {
+              connect: data.UserId,
+            }
+          : undefined,
+      },
       select: {
         category: true,
         createdAt: true,
@@ -60,7 +68,13 @@ export class EventControllerBase {
         startDate: true,
         title: true,
         updatedAt: true,
-        userId: true,
+
+        UserId: {
+          select: {
+            id: true,
+          },
+        },
+
         venue: true,
       },
     });
@@ -93,7 +107,13 @@ export class EventControllerBase {
         startDate: true,
         title: true,
         updatedAt: true,
-        userId: true,
+
+        UserId: {
+          select: {
+            id: true,
+          },
+        },
+
         venue: true,
       },
     });
@@ -127,7 +147,13 @@ export class EventControllerBase {
         startDate: true,
         title: true,
         updatedAt: true,
-        userId: true,
+
+        UserId: {
+          select: {
+            id: true,
+          },
+        },
+
         venue: true,
       },
     });
@@ -158,7 +184,15 @@ export class EventControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          UserId: data.UserId
+            ? {
+                connect: data.UserId,
+              }
+            : undefined,
+        },
         select: {
           category: true,
           createdAt: true,
@@ -170,7 +204,13 @@ export class EventControllerBase {
           startDate: true,
           title: true,
           updatedAt: true,
-          userId: true,
+
+          UserId: {
+            select: {
+              id: true,
+            },
+          },
+
           venue: true,
         },
       });
@@ -212,7 +252,13 @@ export class EventControllerBase {
           startDate: true,
           title: true,
           updatedAt: true,
-          userId: true,
+
+          UserId: {
+            select: {
+              id: true,
+            },
+          },
+
           venue: true,
         },
       });
