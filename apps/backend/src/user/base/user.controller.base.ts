@@ -19,6 +19,7 @@ import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import { UserService } from "../user.service";
+import { Public } from "../../decorators/public.decorator";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { UserCreateInput } from "./UserCreateInput";
@@ -38,14 +39,9 @@ export class UserControllerBase {
     protected readonly service: UserService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
-  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @Public()
   @common.Post()
   @swagger.ApiCreatedResponse({ type: User })
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "create",
-    possession: "any",
-  })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
@@ -64,15 +60,10 @@ export class UserControllerBase {
     });
   }
 
-  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @Public()
   @common.Get()
   @swagger.ApiOkResponse({ type: [User] })
   @ApiNestedQuery(UserFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "read",
-    possession: "any",
-  })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
@@ -92,15 +83,10 @@ export class UserControllerBase {
     });
   }
 
-  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @Public()
   @common.Get("/:id")
   @swagger.ApiOkResponse({ type: User })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "read",
-    possession: "own",
-  })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
