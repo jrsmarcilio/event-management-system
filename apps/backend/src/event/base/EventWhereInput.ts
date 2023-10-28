@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { User } from "../../user/base/User";
 
 @InputType()
 class EventWhereInput {
@@ -118,7 +119,7 @@ class EventWhereInput {
   @Field(() => UserWhereUniqueInput, {
     nullable: true,
   })
-  UserId?: UserWhereUniqueInput;
+  User?: UserWhereUniqueInput;
 
   @ApiProperty({
     required: false,

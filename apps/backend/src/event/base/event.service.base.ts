@@ -47,11 +47,11 @@ export class EventServiceBase {
     return this.prisma.event.delete(args);
   }
 
-  async getUserId(parentId: string): Promise<User | null> {
+  async getUser(parentId: string): Promise<User | null> {
     return this.prisma.event
       .findUnique({
         where: { id: parentId },
       })
-      .UserId();
+      .User();
   }
 }

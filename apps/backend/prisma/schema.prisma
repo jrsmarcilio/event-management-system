@@ -9,7 +9,7 @@ generator client {
 
 model User {
   createdAt DateTime @default(now())
-  events    Event?
+  events    Event[]
   firstName String?
   id        String   @id @default(cuid())
   lastName  String?
@@ -30,7 +30,7 @@ model Event {
   startDate     DateTime
   title         String
   updatedAt     DateTime @updatedAt
-  UserId        User?    @relation(fields: [UserIdId], references: [id])
-  UserIdId      String?  @unique
+  User          User?    @relation(fields: [UserId], references: [id])
+  UserId        String?
   venue         String
 }

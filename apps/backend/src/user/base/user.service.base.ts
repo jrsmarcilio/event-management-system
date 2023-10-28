@@ -72,11 +72,14 @@ export class UserServiceBase {
     return this.prisma.user.delete(args);
   }
 
-  async getEvents(parentId: string): Promise<Event | null> {
+  async findEvents(
+    parentId: string,
+    args: Prisma.EventFindManyArgs
+  ): Promise<Event[]> {
     return this.prisma.user
-      .findUnique({
+      .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .events();
+      .events(args);
   }
 }

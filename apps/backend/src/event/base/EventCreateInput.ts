@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsDate, IsOptional, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { User } from "../../user/base/User";
 
 @InputType()
 class EventCreateInput {
@@ -89,7 +90,7 @@ class EventCreateInput {
   @Field(() => UserWhereUniqueInput, {
     nullable: true,
   })
-  UserId?: UserWhereUniqueInput | null;
+  User?: UserWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

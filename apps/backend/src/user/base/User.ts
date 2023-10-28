@@ -30,12 +30,12 @@ class User {
 
   @ApiProperty({
     required: false,
-    type: () => Event,
+    type: () => [Event],
   })
   @ValidateNested()
   @Type(() => Event)
   @IsOptional()
-  events?: Event | null;
+  events?: Array<Event>;
 
   @ApiProperty({
     required: false,

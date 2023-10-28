@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { EventWhereUniqueInput } from "../../event/base/EventWhereUniqueInput";
+import { EventListRelationFilter } from "../../event/base/EventListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
@@ -21,15 +21,15 @@ import { StringFilter } from "../../util/StringFilter";
 class UserWhereInput {
   @ApiProperty({
     required: false,
-    type: () => EventWhereUniqueInput,
+    type: () => EventListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => EventWhereUniqueInput)
+  @Type(() => EventListRelationFilter)
   @IsOptional()
-  @Field(() => EventWhereUniqueInput, {
+  @Field(() => EventListRelationFilter, {
     nullable: true,
   })
-  events?: EventWhereUniqueInput;
+  events?: EventListRelationFilter;
 
   @ApiProperty({
     required: false,

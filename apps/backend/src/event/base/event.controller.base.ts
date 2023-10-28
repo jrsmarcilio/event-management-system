@@ -27,6 +27,7 @@ import { EventWhereUniqueInput } from "./EventWhereUniqueInput";
 import { EventFindManyArgs } from "./EventFindManyArgs";
 import { EventUpdateInput } from "./EventUpdateInput";
 import { Event } from "./Event";
+import { User } from "../../user/base/User";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -51,9 +52,9 @@ export class EventControllerBase {
       data: {
         ...data,
 
-        UserId: data.UserId
+        User: data.User
           ? {
-              connect: data.UserId,
+              connect: data.User,
             }
           : undefined,
       },
@@ -69,7 +70,7 @@ export class EventControllerBase {
         title: true,
         updatedAt: true,
 
-        UserId: {
+        User: {
           select: {
             id: true,
           },
@@ -108,7 +109,7 @@ export class EventControllerBase {
         title: true,
         updatedAt: true,
 
-        UserId: {
+        User: {
           select: {
             id: true,
           },
@@ -148,7 +149,7 @@ export class EventControllerBase {
         title: true,
         updatedAt: true,
 
-        UserId: {
+        User: {
           select: {
             id: true,
           },
@@ -187,9 +188,9 @@ export class EventControllerBase {
         data: {
           ...data,
 
-          UserId: data.UserId
+          User: data.User
             ? {
-                connect: data.UserId,
+                connect: data.User,
               }
             : undefined,
         },
@@ -205,7 +206,7 @@ export class EventControllerBase {
           title: true,
           updatedAt: true,
 
-          UserId: {
+          User: {
             select: {
               id: true,
             },
@@ -253,7 +254,7 @@ export class EventControllerBase {
           title: true,
           updatedAt: true,
 
-          UserId: {
+          User: {
             select: {
               id: true,
             },

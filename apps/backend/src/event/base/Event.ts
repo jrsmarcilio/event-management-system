@@ -110,7 +110,7 @@ class Event {
   @ValidateNested()
   @Type(() => User)
   @IsOptional()
-  UserId?: User | null;
+  User?: User | null;
 
   @ApiProperty({
     required: true,
