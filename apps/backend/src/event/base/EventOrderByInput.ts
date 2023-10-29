@@ -138,7 +138,7 @@ class EventOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  UserId?: SortOrder;
+  userId?: SortOrder;
 
   @ApiProperty({
     required: false,
