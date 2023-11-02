@@ -1,6 +1,4 @@
-import { Module, Scope } from "@nestjs/common";
-import { APP_INTERCEPTOR } from "@nestjs/core";
-import { MorganInterceptor, MorganModule } from "nest-morgan";
+import { Module } from "@nestjs/common";
 import { UserModule } from "./user/user.module";
 import { EventModule } from "./event/event.module";
 import { HealthModule } from "./health/health.module";
@@ -23,18 +21,11 @@ import { AuthModule } from "./auth/auth.module";
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
-    MorganModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
     }),
   ],
-  providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      scope: Scope.REQUEST,
-      useClass: MorganInterceptor("combined"),
-    },
-  ],
+  providers: [],
 })
 export class AppModule {}
