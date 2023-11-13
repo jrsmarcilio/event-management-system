@@ -18,58 +18,38 @@ import { EventService } from "../event.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
-  category: "exampleCategory",
+  bucketRoleArn: "exampleBucketRoleArn",
   createdAt: new Date(),
   description: "exampleDescription",
-  endDate: new Date(),
   id: "exampleId",
-  imageUrl: "exampleImageUrl",
-  locationPoint: "exampleLocationPoint",
-  startDate: new Date(),
   title: "exampleTitle",
   updatedAt: new Date(),
-  venue: "exampleVenue",
 };
 const CREATE_RESULT = {
-  category: "exampleCategory",
+  bucketRoleArn: "exampleBucketRoleArn",
   createdAt: new Date(),
   description: "exampleDescription",
-  endDate: new Date(),
   id: "exampleId",
-  imageUrl: "exampleImageUrl",
-  locationPoint: "exampleLocationPoint",
-  startDate: new Date(),
   title: "exampleTitle",
   updatedAt: new Date(),
-  venue: "exampleVenue",
 };
 const FIND_MANY_RESULT = [
   {
-    category: "exampleCategory",
+    bucketRoleArn: "exampleBucketRoleArn",
     createdAt: new Date(),
     description: "exampleDescription",
-    endDate: new Date(),
     id: "exampleId",
-    imageUrl: "exampleImageUrl",
-    locationPoint: "exampleLocationPoint",
-    startDate: new Date(),
     title: "exampleTitle",
     updatedAt: new Date(),
-    venue: "exampleVenue",
   },
 ];
 const FIND_ONE_RESULT = {
-  category: "exampleCategory",
+  bucketRoleArn: "exampleBucketRoleArn",
   createdAt: new Date(),
   description: "exampleDescription",
-  endDate: new Date(),
   id: "exampleId",
-  imageUrl: "exampleImageUrl",
-  locationPoint: "exampleLocationPoint",
-  startDate: new Date(),
   title: "exampleTitle",
   updatedAt: new Date(),
-  venue: "exampleVenue",
 };
 
 const service = {
@@ -155,8 +135,6 @@ describe("Event", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        endDate: CREATE_RESULT.endDate.toISOString(),
-        startDate: CREATE_RESULT.startDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -169,8 +147,6 @@ describe("Event", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
-          endDate: FIND_MANY_RESULT[0].endDate.toISOString(),
-          startDate: FIND_MANY_RESULT[0].startDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -194,8 +170,6 @@ describe("Event", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
-        endDate: FIND_ONE_RESULT.endDate.toISOString(),
-        startDate: FIND_ONE_RESULT.startDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -209,8 +183,6 @@ describe("Event", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        endDate: CREATE_RESULT.endDate.toISOString(),
-        startDate: CREATE_RESULT.startDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

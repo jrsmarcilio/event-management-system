@@ -11,19 +11,25 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsDate, IsOptional, ValidateNested } from "class-validator";
+import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import { User } from "../../user/base/User";
+import { Group } from "../../group/base/Group";
+import { IsJSONValue } from "@app/custom-validators";
+import { GraphQLJSON } from "graphql-type-json";
+import { JsonValue } from "type-fest";
 
 @ObjectType()
 class Event {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  category!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  bucketRoleArn!: string | null;
 
   @ApiProperty({
     required: true,
@@ -34,20 +40,24 @@ class Event {
   createdAt!: Date;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  description!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  description!: string | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
+    type: () => Group,
   })
-  @IsDate()
-  @Type(() => Date)
-  @Field(() => Date)
-  endDate!: Date;
+  @ValidateNested()
+  @Type(() => Group)
+  @IsOptional()
+  group?: Group | null;
 
   @ApiProperty({
     required: true,
@@ -59,14 +69,13 @@ class Event {
 
   @ApiProperty({
     required: false,
-    type: String,
   })
-  @IsString()
+  @IsJSONValue()
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => GraphQLJSON, {
     nullable: true,
   })
-  imageUrl!: string | null;
+  prefixes!: JsonValue;
 
   @ApiProperty({
     required: false,
@@ -77,23 +86,7 @@ class Event {
   @Field(() => String, {
     nullable: true,
   })
-  locationPoint!: string | null;
-
-  @ApiProperty({
-    required: true,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @Field(() => Date)
-  startDate!: Date;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @Field(() => String)
-  title!: string;
+  title!: string | null;
 
   @ApiProperty({
     required: true,
@@ -102,23 +95,6 @@ class Event {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => User,
-  })
-  @ValidateNested()
-  @Type(() => User)
-  @IsOptional()
-  User?: User | null;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @Field(() => String)
-  venue!: string;
 }
 
 export { Event as Event };

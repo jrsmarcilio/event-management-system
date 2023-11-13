@@ -28,7 +28,7 @@ class EventOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  category?: SortOrder;
+  bucketRoleArn?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -61,7 +61,7 @@ class EventOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  endDate?: SortOrder;
+  groupId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -83,29 +83,7 @@ class EventOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  imageUrl?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  locationPoint?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  startDate?: SortOrder;
+  prefixes?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -128,28 +106,6 @@ class EventOrderByInput {
     nullable: true,
   })
   updatedAt?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  userId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  venue?: SortOrder;
 }
 
 export { EventOrderByInput as EventOrderByInput };
