@@ -11,10 +11,12 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
+import { IsString, IsOptional, ValidateNested } from "class-validator";
+import { GroupWhereUniqueInput } from "../../group/base/GroupWhereUniqueInput";
 import { Type } from "class-transformer";
-import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
-import { User } from "../../user/base/User";
+import { IsJSONValue } from "@app/custom-validators";
+import { GraphQLJSON } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
 
 @InputType()
 class EventUpdateInput {
@@ -27,7 +29,7 @@ class EventUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  category?: string;
+  bucketRoleArn?: string | null;
 
   @ApiProperty({
     required: false,
@@ -38,74 +40,29 @@ class EventUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  description?: string;
+  description?: string | null;
 
   @ApiProperty({
     required: false,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  endDate?: Date;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  imageUrl?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  locationPoint?: string | null;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  startDate?: Date;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  title?: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserWhereUniqueInput,
+    type: () => GroupWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => UserWhereUniqueInput)
+  @Type(() => GroupWhereUniqueInput)
   @IsOptional()
-  @Field(() => UserWhereUniqueInput, {
+  @Field(() => GroupWhereUniqueInput, {
     nullable: true,
   })
-  User?: UserWhereUniqueInput | null;
+  group?: GroupWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  prefixes?: InputJsonValue;
 
   @ApiProperty({
     required: false,
@@ -116,7 +73,7 @@ class EventUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  venue?: string;
+  title?: string | null;
 }
 
 export { EventUpdateInput as EventUpdateInput };

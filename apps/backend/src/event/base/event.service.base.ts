@@ -10,7 +10,7 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Event, User } from "@prisma/client";
+import { Prisma, Event, Group } from "@prisma/client";
 
 export class EventServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -47,11 +47,11 @@ export class EventServiceBase {
     return this.prisma.event.delete(args);
   }
 
-  async getUser(parentId: string): Promise<User | null> {
+  async getGroup(parentId: string): Promise<Group | null> {
     return this.prisma.event
       .findUnique({
         where: { id: parentId },
       })
-      .User();
+      .group();
   }
 }

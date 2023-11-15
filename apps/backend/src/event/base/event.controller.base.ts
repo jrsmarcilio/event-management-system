@@ -27,7 +27,6 @@ import { EventWhereUniqueInput } from "./EventWhereUniqueInput";
 import { EventFindManyArgs } from "./EventFindManyArgs";
 import { EventUpdateInput } from "./EventUpdateInput";
 import { Event } from "./Event";
-import { User } from "../../user/base/User";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,31 +51,27 @@ export class EventControllerBase {
       data: {
         ...data,
 
-        User: data.User
+        group: data.group
           ? {
-              connect: data.User,
+              connect: data.group,
             }
           : undefined,
       },
       select: {
-        category: true,
+        bucketRoleArn: true,
         createdAt: true,
         description: true,
-        endDate: true,
-        id: true,
-        imageUrl: true,
-        locationPoint: true,
-        startDate: true,
-        title: true,
-        updatedAt: true,
 
-        User: {
+        group: {
           select: {
             id: true,
           },
         },
 
-        venue: true,
+        id: true,
+        prefixes: true,
+        title: true,
+        updatedAt: true,
       },
     });
   }
@@ -98,24 +93,20 @@ export class EventControllerBase {
     return this.service.findMany({
       ...args,
       select: {
-        category: true,
+        bucketRoleArn: true,
         createdAt: true,
         description: true,
-        endDate: true,
-        id: true,
-        imageUrl: true,
-        locationPoint: true,
-        startDate: true,
-        title: true,
-        updatedAt: true,
 
-        User: {
+        group: {
           select: {
             id: true,
           },
         },
 
-        venue: true,
+        id: true,
+        prefixes: true,
+        title: true,
+        updatedAt: true,
       },
     });
   }
@@ -138,24 +129,20 @@ export class EventControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        category: true,
+        bucketRoleArn: true,
         createdAt: true,
         description: true,
-        endDate: true,
-        id: true,
-        imageUrl: true,
-        locationPoint: true,
-        startDate: true,
-        title: true,
-        updatedAt: true,
 
-        User: {
+        group: {
           select: {
             id: true,
           },
         },
 
-        venue: true,
+        id: true,
+        prefixes: true,
+        title: true,
+        updatedAt: true,
       },
     });
     if (result === null) {
@@ -188,31 +175,27 @@ export class EventControllerBase {
         data: {
           ...data,
 
-          User: data.User
+          group: data.group
             ? {
-                connect: data.User,
+                connect: data.group,
               }
             : undefined,
         },
         select: {
-          category: true,
+          bucketRoleArn: true,
           createdAt: true,
           description: true,
-          endDate: true,
-          id: true,
-          imageUrl: true,
-          locationPoint: true,
-          startDate: true,
-          title: true,
-          updatedAt: true,
 
-          User: {
+          group: {
             select: {
               id: true,
             },
           },
 
-          venue: true,
+          id: true,
+          prefixes: true,
+          title: true,
+          updatedAt: true,
         },
       });
     } catch (error) {
@@ -243,24 +226,20 @@ export class EventControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          category: true,
+          bucketRoleArn: true,
           createdAt: true,
           description: true,
-          endDate: true,
-          id: true,
-          imageUrl: true,
-          locationPoint: true,
-          startDate: true,
-          title: true,
-          updatedAt: true,
 
-          User: {
+          group: {
             select: {
               id: true,
             },
           },
 
-          venue: true,
+          id: true,
+          prefixes: true,
+          title: true,
+          updatedAt: true,
         },
       });
     } catch (error) {

@@ -19,7 +19,6 @@ import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import { UserService } from "../user.service";
-import { Public } from "../../decorators/public.decorator";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { UserCreateInput } from "./UserCreateInput";
@@ -28,9 +27,6 @@ import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserUpdateInput } from "./UserUpdateInput";
 import { User } from "./User";
-import { EventFindManyArgs } from "../../event/base/EventFindManyArgs";
-import { Event } from "../../event/base/Event";
-import { EventWhereUniqueInput } from "../../event/base/EventWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -39,9 +35,14 @@ export class UserControllerBase {
     protected readonly service: UserService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
-  @Public()
+  @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
   @swagger.ApiCreatedResponse({ type: User })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "create",
+    possession: "any",
+  })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
@@ -60,10 +61,15 @@ export class UserControllerBase {
     });
   }
 
-  @Public()
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get()
   @swagger.ApiOkResponse({ type: [User] })
   @ApiNestedQuery(UserFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
@@ -83,10 +89,15 @@ export class UserControllerBase {
     });
   }
 
-  @Public()
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id")
   @swagger.ApiOkResponse({ type: User })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "own",
+  })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
@@ -188,115 +199,5 @@ export class UserControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/events")
-  @ApiNestedQuery(EventFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "Event",
-    action: "read",
-    possession: "any",
-  })
-  async findManyEvents(
-    @common.Req() request: Request,
-    @common.Param() params: UserWhereUniqueInput
-  ): Promise<Event[]> {
-    const query = plainToClass(EventFindManyArgs, request.query);
-    const results = await this.service.findEvents(params.id, {
-      ...query,
-      select: {
-        category: true,
-        createdAt: true,
-        description: true,
-        endDate: true,
-        id: true,
-        imageUrl: true,
-        locationPoint: true,
-        startDate: true,
-        title: true,
-        updatedAt: true,
-
-        User: {
-          select: {
-            id: true,
-          },
-        },
-
-        venue: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/events")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async connectEvents(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: EventWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      events: {
-        connect: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/events")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async updateEvents(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: EventWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      events: {
-        set: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/events")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectEvents(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: EventWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      events: {
-        disconnect: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }
